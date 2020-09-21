@@ -7,7 +7,15 @@
         "makemigrations": "docker-compose run api python manage.py makemigrations",
         "migrate": "docker-compose run api python manage.py migrate",
         "start": "docker-compose up",
-        "lint": "eslint assets"
+        "lint": "eslint assets/js/**/*",
+        "fix:lint": "eslint assets/js/**/* --fix",
+        "test": "jest --passWithNoTests"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm test && npm run lint",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
     },
     "homepage": "https://github.com/vintasoftware/github-monitor#readme",
     "dependencies": {
@@ -19,6 +27,7 @@
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-react": "^6.24.1",
         "babel-preset-stage-2": "^6.24.1",
+        "prop-types": "^15.7.2",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-redux": "^7.2.0",
@@ -30,11 +39,17 @@
         "webpack-cli": "^3.3.12"
     },
     "devDependencies": {
+        "@commitlint/cli": "^11.0.0",
+        "@commitlint/config-conventional": "^11.0.0",
         "babel-eslint": "^10.1.0",
         "eslint": "^7.4.0",
         "eslint-config-airbnb": "^18.2.0",
+        "eslint-config-prettier": "^6.11.0",
         "eslint-plugin-import": "^2.22.0",
         "eslint-plugin-jsx-a11y": "^6.3.1",
-        "eslint-plugin-react": "^7.20.3"
+        "eslint-plugin-react": "^7.20.3",
+        "husky": "^4.3.0",
+        "jest": "^26.4.2",
+        "prettier": "2.1.2"
     }
 }

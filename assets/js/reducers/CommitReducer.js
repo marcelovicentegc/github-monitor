@@ -1,7 +1,4 @@
-import {
-  GET_COMMITS_SUCCESS,
-  CREATE_REPOSITORY_SUCCESS,
-} from "../actions/ActionTypes";
+import {GET_COMMITS_SUCCESS, CREATE_REPOSITORY_SUCCESS} from '../actions/ActionTypes';
 
 const initialState = {
   commits: [],
@@ -16,7 +13,7 @@ const commitReducer = (state = initialState, action) => {
         commits: Object.values(action.payload),
       };
     case CREATE_REPOSITORY_SUCCESS: {
-      return { ...state, successMessage: action.payload.successMessage };
+      return {...state, successMessage: action.payload.successMessage};
     }
     default:
       return state;

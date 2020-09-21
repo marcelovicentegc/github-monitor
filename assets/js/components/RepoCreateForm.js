@@ -2,46 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Field, reduxForm} from 'redux-form';
 
-const renderField = ({
-  input, placeholder, className, type, meta: {touched, error, invalid},
-}) => (
-    <div>
-      <input
-        {...input}
-        placeholder={placeholder}
-        className={`${className} ${touched && invalid ? 'is-invalid' : ''}`}
-        type={type}
-      />
-      {touched
-        && ((error && (
-          <div className="invalid-feedback">
-            {error}
-          </div>
-        )))
-      }
-    </div>
-  );
+const renderField = ({input, placeholder, className, type, meta: {touched, error, invalid}}) => (
+  <div>
+    <input
+      name={input.name}
+      onDragStart={input.onDragStart}
+      onDrop={input.onDrop}
+      onFocus={input.onFocus}
+      checked={input.checked}
+      value={input.value}
+      onBlur={input.onBlur}
+      onChange={input.onChange}
+      placeholder={placeholder}
+      className={`${className} ${touched && invalid ? 'is-invalid' : ''}`}
+      type={type}
+    />
+    {touched && error && <div className="invalid-feedback">{error}</div>}
+  </div>
+);
 
 renderField.propTypes = {
-  input: PropTypes.object.isRequired,
+  input: PropTypes.objectOf(PropTypes.object).isRequired,
   placeholder: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  meta: PropTypes.object.isRequired,
+  meta: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
-const RepoCreateForm = (props) => {
-  const {
-    successMessage, handleSubmit, pristine, submitting,
-  } = props;
+const RepoCreateForm = props => {
+  const {successMessage, handleSubmit, pristine, submitting} = props;
   return (
     <div>
-      {successMessage
-        && (
-          <div className="alert alert-success" role="alert">
-            Repository added successfully!
-          </div>
-        )}
+      {successMessage && (
+        <div className="alert alert-success" role="alert">
+          Repository added successfully!
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="form-row">
           <div className="col-10">
@@ -54,7 +50,11 @@ const RepoCreateForm = (props) => {
             />
           </div>
           <div className="col-2">
-            <button disabled={pristine || submitting} className="btn btn-block btn-primary" type="submit">
+            <button
+              disabled={pristine || submitting}
+              className="btn btn-block btn-primary"
+              type="submit"
+            >
               Submit
             </button>
           </div>
@@ -71,7 +71,7 @@ RepoCreateForm.propTypes = {
   successMessage: PropTypes.bool.isRequired,
 };
 
-const validate = (values) => {
+const validate = values => {
   const {username} = document.getElementById('main').dataset;
   const errors = {};
   if (!values.name || !values.name.startsWith(`${username}/`)) {
