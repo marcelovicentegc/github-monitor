@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   db:
@@ -11,16 +11,6 @@ services:
     build: .
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app/
-    env_file: .env
-    depends_on:
-      - db
-      - redis
-
-  worker:
-    image: github-monitor_api:latest
-    command: celery worker --app=githubmonitor --loglevel=info
     volumes:
       - .:/app/
     env_file: .env

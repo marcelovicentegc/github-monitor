@@ -1,6 +1,11 @@
+# Global
 .env
 .db
+
+# Python
 *.pyc
+
+# Node
 node_modules
 webpack-stats.json
 assets/bundles/
