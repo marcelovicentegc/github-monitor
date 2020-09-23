@@ -1,8 +1,7 @@
 FROM node:lts
 
 RUN mkdir /app/
-WORKDIR /app/
-ADD . /app/
-RUN npm install
-
-CMD ["npm", "run", "webpack"]
+WORKDIR /app
+ADD .npmrc package.json package-lock.json /app/
+RUN npm ci
+ADD . /app
