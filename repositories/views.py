@@ -15,10 +15,11 @@ class CommitsEndpoint(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     
     def get(self, request, format=None):
-        queryset = Commit.objects.all()
-        serializer_class = CommitSerializer
+        commits = Commit.objects.all()
+        serializer = CommitSerializer(commits, many=True)
+        return Response(serializer.data)
 
-class RepositoryEndpoint(APIView):
+class RepositoriesEndpoint(APIView):
     permission_classes = (IsAuthenticated,)
     parser_classes = [JSONParser]
 
