@@ -1,16 +1,10 @@
-import React, { Suspense } from "react";
-import { Link, BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, {Suspense} from 'react';
+import {Link, BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 const CommitListContainer = React.lazy(() =>
-  import(
-    /* webpackChunkName: "CommitListContainer" */ "./containers/CommitListContainer"
-  )
+  import(/* webpackChunkName: "CommitListContainer" */ '../CommitList')
 );
-const RepoCreateContainer = React.lazy(() =>
-  import(
-    /* webpackChunkName: "RepoCreateContainer" */ "./containers/RepoCreateContainer"
-  )
-);
+const CreateRepo = React.lazy(() => import(/* webpackChunkName: "CreateRepo" */ '../CreateRepo'));
 
 export default (
   <Router>
@@ -25,12 +19,12 @@ export default (
 
       <div id="page-content-wrapper">
         <div className="container-fluid">
-          <Suspense fallback={"loading..."}>
-            <RepoCreateContainer />
+          <Suspense fallback="loading...">
+            <CreateRepo />
           </Suspense>
           <Switch>
             <Route path="/" exact>
-              <Suspense fallback={"loading..."}>
+              <Suspense fallback="loading...">
                 <CommitListContainer />
               </Suspense>
             </Route>

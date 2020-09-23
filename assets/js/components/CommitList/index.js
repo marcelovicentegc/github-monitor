@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const CommitList = props => {
   const {commits} = props;
+
   return (
     <div>
       {commits?.results.length > 0 && (

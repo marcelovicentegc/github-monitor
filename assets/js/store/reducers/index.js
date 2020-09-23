@@ -5,9 +5,7 @@ import {reducer as formReducer} from 'redux-form';
 import commitReducer from './CommitReducer';
 
 // Combine Reducers
-const reducers = combineReducers({
+export default combineReducers({
   form: formReducer,
   commitState: commitReducer,
 });
-
-export default reducers;

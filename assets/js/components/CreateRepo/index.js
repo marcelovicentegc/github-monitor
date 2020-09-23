@@ -34,7 +34,7 @@ renderField.propTypes = {
   meta: PropTypes.objectOf(PropTypes.shape()).isRequired,
 };
 
-const RepoCreateForm = props => {
+const Form = props => {
   const {successMessage, handleSubmit, pristine, submitting} = props;
   return (
     <div>
@@ -69,7 +69,7 @@ const RepoCreateForm = props => {
   );
 };
 
-RepoCreateForm.propTypes = {
+Form.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
@@ -88,4 +88,4 @@ const validate = values => {
 export default reduxForm({
   form: 'repoCreate',
   validate,
-})(RepoCreateForm);
+})(Form);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {reset} from 'redux-form';
 import store from '../store';
-import {createRepositorySuccess, getCommitsSuccess} from '../actions/CommitActions';
+import {createRepositorySuccess, getCommitsSuccess} from '../store/actions/CommitActions';
 
 export async function getCommits() {
   axios.get('/api/commits/').then(response => {
