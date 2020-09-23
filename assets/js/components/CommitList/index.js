@@ -5,13 +5,13 @@ const CommitList = props => {
   const {commits} = props;
   return (
     <div>
-      {commits.length !== 0 && (
+      {commits?.results.length > 0 && (
         <div>
           <div className="card card-outline-secondary my-4">
             <div className="card-header">Commit List</div>
 
             <div className="card-body">
-              {commits.map((commit, index) => (
+              {commits.results.map((commit, index) => (
                 <div key={commit.sha}>
                   <div className="avatar">
                     <img alt={commit.author} className="img-author" src={commit.avatar} />
@@ -34,7 +34,7 @@ const CommitList = props => {
 };
 
 CommitList.propTypes = {
-  commits: PropTypes.arrayOf(PropTypes.object).isRequired,
+  commits: PropTypes.objectOf(PropTypes.shape()).isRequired,
 };
 
 export default CommitList;

@@ -3,10 +3,11 @@ import {reset} from 'redux-form';
 import store from '../store';
 import {createRepositorySuccess, getCommitsSuccess} from '../actions/CommitActions';
 
-export const getCommits = () =>
+export async function getCommits() {
   axios.get('/api/commits/').then(response => {
     store.dispatch(getCommitsSuccess({...response.data}));
   });
+}
 
 export const createRepository = (values, headers, formDispatch) =>
   axios

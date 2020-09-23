@@ -1,7 +1,7 @@
 import {GET_COMMITS_SUCCESS, CREATE_REPOSITORY_SUCCESS} from '../actions/ActionTypes';
 
 const initialState = {
-  commits: [],
+  commits: {},
   successMessage: false,
 };
 

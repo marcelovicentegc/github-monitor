@@ -2,17 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Field, reduxForm} from 'redux-form';
 
-const renderField = ({input, placeholder, className, type, meta: {touched, error, invalid}}) => (
+const renderField = ({
+  input: {name, onBlur, onChange, onDragStart, onDrop, onFocus, value},
+  placeholder,
+  className,
+  type,
+  meta: {touched, error, invalid},
+}) => (
   <div>
     <input
-      name={input.name}
-      onDragStart={input.onDragStart}
-      onDrop={input.onDrop}
-      onFocus={input.onFocus}
-      checked={input.checked}
-      value={input.value}
-      onBlur={input.onBlur}
-      onChange={input.onChange}
+      name={name}
+      onBlur={onBlur}
+      onChange={onChange}
+      onDragStart={onDragStart}
+      onDrop={onDrop}
+      onFocus={onFocus}
+      value={value}
       placeholder={placeholder}
       className={`${className} ${touched && invalid ? 'is-invalid' : ''}`}
       type={type}
@@ -22,11 +27,11 @@ const renderField = ({input, placeholder, className, type, meta: {touched, error
 );
 
 renderField.propTypes = {
-  input: PropTypes.objectOf(PropTypes.object).isRequired,
+  input: PropTypes.objectOf(PropTypes.shape()).isRequired,
   placeholder: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  meta: PropTypes.objectOf(PropTypes.object).isRequired,
+  meta: PropTypes.objectOf(PropTypes.shape()).isRequired,
 };
 
 const RepoCreateForm = props => {
