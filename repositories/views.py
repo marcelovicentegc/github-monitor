@@ -7,18 +7,16 @@ from rest_framework.parsers import JSONParser
 from .integrations import Github
 from .models import Commit, Repository
 from .serializers import CommitSerializer, RepositorySerializer
-
+from .utils import Pagination
 
 class CommitsEndpoint(generics.ListAPIView):
     """
-    Gets every commit made.
+    Gets paginated commits
     """
     permission_classes = (IsAuthenticated,)
-    
-    def get(self, request, format=None):
-        commits = Commit.objects.all()
-        serializer = CommitSerializer(commits, many=True)
-        return Response(serializer.data)
+    queryset = Commit.objects.all()
+    serializer_class = CommitSerializer
+    pagination_class = Pagination
 
 
 class RepositoriesEndpoint(APIView):
