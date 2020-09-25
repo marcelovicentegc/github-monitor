@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {createRepository} from '../../api';
+import useApi from '../../hooks/useApi';
 import CreateRepoForm from '../../components/CreateRepo';
+
+const {createRepository} = useApi();
 
 class CreateRepo extends React.Component {
   submit = (values, dispatch) => {

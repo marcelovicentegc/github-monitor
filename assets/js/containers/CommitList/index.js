@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import CommitList from '../../components/CommitList';
-import {getCommits} from '../../api';
+import useApi from '../../hooks/useApi';
+
+const {getCommits} = useApi();
 
 const mapStateToProps = store => ({
   commits: store.commitState.commits,
@@ -18,7 +20,7 @@ class CommitListContainer extends React.Component {
 
   async componentDidMount() {
     this.setState({isLoading: true});
-    await getCommits();
+    await getCommits({});
     this.setState({isLoading: false});
   }
 
@@ -29,7 +31,7 @@ class CommitListContainer extends React.Component {
     return (
       <div>
         {isLoading && <h1>Loading...</h1>}
-        {!isLoading && commits?.results && <CommitList commits={commits} />}
+        {!isLoading && commits?.results && <CommitList commits={commits} getCommits={getCommits} />}
       </div>
     );
   }
