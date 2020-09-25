@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {generateKey} from '../../utils/generateKey';
+
+const PAGE_SIZE = 10;
 
 const CommitList = props => {
   const {commits} = props;
@@ -22,12 +25,53 @@ const CommitList = props => {
                     <small className="text-muted">
                       {commit.author} authored on {commit.repository} at {commit.date}
                     </small>
-                    {index !== commits.length - 1 && <hr />}
+                    {index !== PAGE_SIZE - 1 && <hr />}
                   </div>
                 </div>
               ))}
             </div>
           </div>
+          {commits && (
+            <div className="d-flex align-items-center justify-content-center">
+              <nav aria-label="Commit list navigation">
+                <ul className="pagination">
+                  {commits.previous && (
+                    <li className="page-item">
+                      <button className="page-link" type="button">
+                        Previous
+                      </button>
+                    </li>
+                  )}
+                  {Array.from(new Array(commits.total_pages)).map((_, i) => {
+                    const isActive = commits.current_page === i + 1;
+
+                    return (
+                      <li className={`page-item ${isActive ? 'active' : ''}`} key={generateKey(20)}>
+                        <button
+                          className="page-link"
+                          type="button"
+                          onClick={() => {
+                            // getData
+                            return null;
+                          }}
+                        >
+                          {i + 1}
+                        </button>
+                        {isActive && <span className="sr-only">(current)</span>}
+                      </li>
+                    );
+                  })}
+                  {commits.next && (
+                    <li className="page-item">
+                      <button className="page-link" type="button">
+                        Next
+                      </button>
+                    </li>
+                  )}
+                </ul>
+              </nav>
+            </div>
+          )}
         </div>
       )}
     </div>
