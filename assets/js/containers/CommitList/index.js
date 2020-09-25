@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getCommits} from '../../api';
 import CommitList from '../../components/CommitList';
+import {getCommits} from '../../api';
 
 const mapStateToProps = store => ({
   commits: store.commitState.commits,
