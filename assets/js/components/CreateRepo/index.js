@@ -34,13 +34,17 @@ renderField.propTypes = {
   meta: PropTypes.objectOf(PropTypes.shape()).isRequired,
 };
 
-const Form = props => {
-  const {successMessage, handleSubmit, pristine, submitting} = props;
+const Form = ({successMessage, handleSubmit, pristine, submitting, errorMessage}) => {
   return (
     <div>
       {successMessage && (
         <div className="alert alert-success" role="alert">
-          Repository added successfully!
+          {successMessage}
+        </div>
+      )}
+      {errorMessage && (
+        <div className="alert alert-danger" role="alert">
+          {errorMessage}
         </div>
       )}
       <form onSubmit={handleSubmit}>
@@ -73,7 +77,8 @@ Form.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
-  successMessage: PropTypes.bool.isRequired,
+  successMessage: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 };
 
 const validate = values => {

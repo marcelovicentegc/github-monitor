@@ -6,10 +6,6 @@ import useApi from '../../hooks/useApi';
 
 const {getCommits} = useApi();
 
-const mapStateToProps = store => ({
-  commits: store.commitState.commits,
-});
-
 class CommitListContainer extends React.Component {
   constructor() {
     super();
@@ -40,5 +36,9 @@ class CommitListContainer extends React.Component {
 CommitListContainer.propTypes = {
   commits: PropTypes.objectOf(PropTypes.shape()).isRequired,
 };
+
+const mapStateToProps = store => ({
+  commits: store.commitState.commits,
+});
 
 export default connect(mapStateToProps)(CommitListContainer);

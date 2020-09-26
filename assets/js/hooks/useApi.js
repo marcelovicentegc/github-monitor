@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {reset} from 'redux-form';
 import store from '../store';
-import {createRepositorySuccess, getCommitsSuccess} from '../store/actions/CommitActions';
-import {CREATE_REPOSITORY_ENDPOINT, GET_COMMITS_ENDPOINT} from '../utils/endpoints';
+import {createRepositorySuccess, getCommitsSuccess, apiError} from '../store/actions/CommitActions';
+import {CREATE_REPOSITORY_ENDPOINT, GET_COMMITS_ENDPOINT, API_MESSAGES} from '../utils/api';
 
 function useApi() {
   async function getCommits({page, querystring}) {
@@ -18,21 +18,23 @@ function useApi() {
       return GET_COMMITS_ENDPOINT;
     })();
 
-    axios.get(endpoint).then(response => {
-      store.dispatch(getCommitsSuccess({...response.data}));
-    });
+    axios
+      .get(endpoint)
+      .then(response => {
+        store.dispatch(getCommitsSuccess({...response.data}));
+      })
+      .catch(error => store.dispatch(apiError(error.message)));
   }
 
   async function createRepository(values, headers, formDispatch) {
     axios
       .post(CREATE_REPOSITORY_ENDPOINT, values, {headers})
       .then(response => {
-        store.dispatch(createRepositorySuccess(response.data, true));
+        store.dispatch(createRepositorySuccess(response.data, API_MESSAGES.CREATE_REPO.SUCCESS));
         formDispatch(reset('repoCreate'));
       })
       .catch(error => {
-        const err = error.response;
-        console.log(err);
+        store.dispatch(apiError(API_MESSAGES.CREATE_REPO[error.response.status]));
       });
   }
 

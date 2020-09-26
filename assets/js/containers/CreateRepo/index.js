@@ -16,18 +16,26 @@ class CreateRepo extends React.Component {
   };
 
   render() {
-    const {successMessage} = this.props;
+    const {successMessage, errorMessage} = this.props;
 
-    return <CreateRepoForm onSubmit={this.submit} successMessage={successMessage} />;
+    return (
+      <CreateRepoForm
+        onSubmit={this.submit}
+        successMessage={successMessage}
+        errorMessage={errorMessage}
+      />
+    );
   }
 }
 
 CreateRepo.propTypes = {
-  successMessage: PropTypes.bool.isRequired,
+  successMessage: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = store => ({
   successMessage: store.commitState.successMessage,
+  errorMessage: store.commitState.errorMessage,
 });
 
 export default connect(mapStateToProps)(CreateRepo);
