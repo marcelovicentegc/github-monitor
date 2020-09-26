@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Field, reduxForm} from 'redux-form';
+import Loading from '../Loading';
 
 const renderField = ({
   input: {name, onBlur, onChange, onDragStart, onDrop, onFocus, value},
@@ -64,7 +65,7 @@ const Form = ({successMessage, handleSubmit, pristine, submitting, errorMessage}
               className="btn btn-block btn-primary"
               type="submit"
             >
-              Submit
+              Submit {submitting && <Loading />}
             </button>
           </div>
         </div>
