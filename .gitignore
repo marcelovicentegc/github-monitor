@@ -4,6 +4,7 @@
 
 # Python
 *.pyc
+venv
 
 # Node
 node_modules
