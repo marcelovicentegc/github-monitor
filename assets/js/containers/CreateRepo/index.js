@@ -29,8 +29,13 @@ class CreateRepo extends React.Component {
 }
 
 CreateRepo.propTypes = {
-  successMessage: PropTypes.string.isRequired,
-  errorMessage: PropTypes.string.isRequired,
+  successMessage: PropTypes.string,
+  errorMessage: PropTypes.string,
+};
+
+CreateRepo.defaultProps = {
+  successMessage: '',
+  errorMessage: '',
 };
 
 const mapStateToProps = store => ({

@@ -17,7 +17,9 @@ class CommitListContainer extends React.Component {
 
   async componentDidMount() {
     this.setState({isLoading: true});
+
     await getCommits({});
+
     this.setState({isLoading: false});
   }
 

@@ -8,7 +8,8 @@ const initialState = {
     previous: null,
     results: [],
   },
-  successMessage: false,
+  successMessage: '',
+  errorMessage: '',
 };
 
 const commitReducer = (state = initialState, action) => {

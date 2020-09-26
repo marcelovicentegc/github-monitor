@@ -5,14 +5,18 @@ import {createRepositorySuccess, getCommitsSuccess, apiError} from '../store/act
 import {CREATE_REPOSITORY_ENDPOINT, GET_COMMITS_ENDPOINT, API_MESSAGES} from '../utils/api';
 
 function useApi() {
-  async function getCommits({page, querystring}) {
+  async function getCommits({querystring, params}) {
     const endpoint = (() => {
       if (querystring) {
         return querystring;
       }
 
-      if (page) {
-        return `${GET_COMMITS_ENDPOINT}?page=${page}`;
+      if (params) {
+        const mappedParams = Object.entries(params)
+          .map(param => `&${param[0]}=${param[1]}`)
+          .join();
+
+        return `${GET_COMMITS_ENDPOINT}?${mappedParams.substr(1)}`;
       }
 
       return GET_COMMITS_ENDPOINT;

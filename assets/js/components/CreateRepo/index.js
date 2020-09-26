@@ -77,8 +77,13 @@ Form.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
-  successMessage: PropTypes.string.isRequired,
-  errorMessage: PropTypes.string.isRequired,
+  successMessage: PropTypes.string,
+  errorMessage: PropTypes.string,
+};
+
+Form.defaultProps = {
+  successMessage: '',
+  errorMessage: '',
 };
 
 const validate = values => {

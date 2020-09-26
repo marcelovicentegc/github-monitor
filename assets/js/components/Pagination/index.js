@@ -23,7 +23,11 @@ const Pagination = ({data, getData}) => {
 
             return (
               <li className={`page-item ${isActive ? 'active' : ''}`} key={generateKey(20)}>
-                <button className="page-link" type="button" onClick={() => getData({page: i + 1})}>
+                <button
+                  className="page-link"
+                  type="button"
+                  onClick={() => getData({params: {page: i + 1}})}
+                >
                   {i + 1}
                 </button>
                 {isActive && <span className="sr-only">(current)</span>}
