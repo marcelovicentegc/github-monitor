@@ -11,7 +11,6 @@ const CommitList = ({commits, getCommits}) => {
         <div>
           <div className="card card-outline-secondary my-4">
             <div className="card-header">Commit List</div>
-
             <div className="card-body">
               {commits.results.map((commit, index) => (
                 <div key={commit.sha}>

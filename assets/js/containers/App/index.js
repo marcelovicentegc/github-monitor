@@ -1,5 +1,6 @@
 import React, {Suspense} from 'react';
 import {Link, BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 const CommitListContainer = React.lazy(() =>
   import(/* webpackChunkName: "CommitListContainer" */ '../CommitList')
@@ -19,12 +20,12 @@ export default (
 
       <div id="page-content-wrapper">
         <div className="container-fluid">
-          <Suspense fallback="loading...">
+          <Suspense fallback={<Loading />}>
             <CreateRepo />
           </Suspense>
           <Switch>
             <Route path="/" exact>
-              <Suspense fallback="loading...">
+              <Suspense fallback={<Loading />}>
                 <CommitListContainer />
               </Suspense>
             </Route>

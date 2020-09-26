@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import CommitList from '../../components/CommitList';
 import useApi from '../../hooks/useApi';
+import Loading from '../../components/Loading';
 
 const {getCommits} = useApi();
 
@@ -26,7 +27,7 @@ class CommitListContainer extends React.Component {
 
     return (
       <div>
-        {isLoading && <h1>Loading...</h1>}
+        {isLoading && <Loading />}
         {!isLoading && commits?.results && <CommitList commits={commits} getCommits={getCommits} />}
       </div>
     );
