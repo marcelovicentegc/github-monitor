@@ -6,6 +6,7 @@
     "dev": "webpack --config webpack.config.js --watch",
     "makemigrations": "docker-compose run api python manage.py makemigrations",
     "migrate": "docker-compose run api python manage.py migrate",
+    "start:rebuild": "docker-compose up --no-deps --build",
     "start": "docker-compose up",
     "lint": "eslint assets/js/**/*",
     "fix:lint": "eslint assets/js/**/* --fix",

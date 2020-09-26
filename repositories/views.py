@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 
 from django.db import transaction
-from rest_framework import generics, status
+from django_filters import rest_framework as filters
+from rest_framework import status
+from rest_framework.generics import ListAPIView
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -13,7 +15,7 @@ from .serializers import CommitSerializer, RepositorySerializer
 from .utils import Pagination
 
 
-class CommitsEndpoint(generics.ListAPIView):
+class CommitsEndpoint(ListAPIView, filters.FilterSet):  # pylint: disable=too-many-ancestors
     """
     Gets paginated commits
     """
@@ -21,6 +23,11 @@ class CommitsEndpoint(generics.ListAPIView):
     queryset = Commit.objects.all()
     serializer_class = CommitSerializer
     pagination_class = Pagination
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = {
+        'author': ['exact'],
+        'repository__name': ['exact']
+    }
 
 
 class RepositoriesEndpoint(APIView):

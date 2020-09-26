@@ -9,8 +9,7 @@ ENV PATH="/home/user/.local/bin:${PATH}"
 
 WORKDIR /app
 ADD requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir --user -r requirements.txt
 
 COPY --chown=user:user . /app
 
-CMD python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+CMD pip install --no-cache-dir --user -r requirements.txt && python manage.py migrate && python manage.py runserver 0.0.0.0:8000
