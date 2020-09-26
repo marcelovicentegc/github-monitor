@@ -1,13 +1,17 @@
+from datetime import datetime, timedelta
+
 from django.db import transaction
-from rest_framework import status, generics, filters
-from rest_framework.views import APIView
+from rest_framework import generics, status
+from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView
+
 from .integrations import Github
 from .models import Commit, Repository
 from .serializers import CommitSerializer, RepositorySerializer
 from .utils import Pagination
+
 
 class CommitsEndpoint(generics.ListAPIView):
     """
@@ -32,13 +36,17 @@ class RepositoriesEndpoint(APIView):
         """
         data = request.data
         serializer = RepositorySerializer(data=data)
-        
+
         if serializer.is_valid():
-            try: 
-                repository = Repository.objects.get(name=data['repo'])
+            try:
+                Repository.objects.get(name=data['repo'])
                 return Response(status=status.HTTP_409_CONFLICT)
             except Repository.DoesNotExist:
-                commits = Github.list_commits(data['name'], data['repo'])
+                last_30_days = datetime.now() - timedelta(30)
+                commits = Github.list_commits(
+                    data['name'],
+                    data['repo'],
+                    since=last_30_days.isoformat())
                 repo = serializer.save()
 
                 with transaction.atomic():

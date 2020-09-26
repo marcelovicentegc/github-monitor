@@ -19,16 +19,17 @@ class Github:
         user = User.objects.get(username=owner)
         access_token = UserSocialAuth.objects.get(user_id=user.id).extra_data['access_token']
 
+        params = []
+
+        for kw in kwargs:
+            params.append('&{}={}'.format(kw, kwargs[kw]))
+
         response = requests.get(
-            'https://api.github.com/repos/{}/{}/commits?sha={}&path={}&author={}&since={}&until={}'
+            'https://api.github.com/repos/{}/{}/commits?{}'
             .format(
                 owner,
                 repo,
-                kwargs['sha'],
-                kwargs['path'],
-                kwargs['author'],
-                kwargs['since'],
-                kwargs['until']
+                ''.join(params)[1:]
             ),
             auth=(owner, access_token)
         )

@@ -2,6 +2,6 @@ FROM node:lts
 
 RUN mkdir /app/
 WORKDIR /app
-ADD .npmrc package.json package-lock.json /app/
+ADD package.json package-lock.json /app/
 RUN npm ci
 ADD . /app

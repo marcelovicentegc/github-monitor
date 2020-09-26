@@ -13,4 +13,4 @@ RUN pip install --no-cache-dir --user -r requirements.txt
 
 COPY --chown=user:user . /app
 
-CMD python manage.py runserver 0.0.0.0:8000
+CMD python manage.py migrate && python manage.py runserver 0.0.0.0:8000

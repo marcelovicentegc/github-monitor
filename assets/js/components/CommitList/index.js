@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Pagination from '../Pagination';
 
-const PAGE_SIZE = 10;
-
 const CommitList = ({commits, getCommits}) => {
   return (
     <div>
@@ -22,13 +20,13 @@ const CommitList = ({commits, getCommits}) => {
                     <small className="text-muted">
                       {commit.author} authored on {commit.repository} at {commit.date}
                     </small>
-                    {index !== PAGE_SIZE - 1 && <hr />}
+                    {index !== commits.results.length - 1 && <hr />}
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <Pagination data={commits} getData={getCommits} />
+          {commits.total_pages > 1 && <Pagination data={commits} getData={getCommits} />}
         </div>
       )}
     </div>
