@@ -11,6 +11,7 @@
     "lint": "eslint assets/js/**/*",
     "fix:lint": "eslint assets/js/**/* --fix",
     "test": "jest \"(/__tests__/.)*\\.js?$\" --coverage --colors --silent",
+    "test:static": "npm run lint",
     "test:watch": "jest \"(/__tests__/.)*\\.js?$\" --coverage --colors --watch"
   },
   "husky": {
