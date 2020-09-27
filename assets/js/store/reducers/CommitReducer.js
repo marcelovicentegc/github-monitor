@@ -1,4 +1,9 @@
-import {GET_COMMITS_SUCCESS, CREATE_REPOSITORY_SUCCESS, API_ERROR} from '../actions/ActionTypes';
+import {
+  GET_COMMITS_SUCCESS,
+  CREATE_REPOSITORY_SUCCESS,
+  API_ERROR,
+  SET_FILTERS,
+} from '../actions/ActionTypes';
 
 const initialState = {
   commits: {
@@ -10,6 +15,7 @@ const initialState = {
   },
   successMessage: '',
   errorMessage: '',
+  filters: [],
 };
 
 const commitReducer = (state = initialState, action) => {
@@ -24,6 +30,9 @@ const commitReducer = (state = initialState, action) => {
     }
     case API_ERROR: {
       return {...state, errorMessage: action.payload.errorMessage, successMessage: null};
+    }
+    case SET_FILTERS: {
+      return {...state, filters: [...state.filters, action.payload]};
     }
     default:
       return state;

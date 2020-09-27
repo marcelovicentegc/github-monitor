@@ -1,4 +1,9 @@
-import {API_ERROR, CREATE_REPOSITORY_SUCCESS, GET_COMMITS_SUCCESS} from './ActionTypes';
+import {
+  API_ERROR,
+  CREATE_REPOSITORY_SUCCESS,
+  GET_COMMITS_SUCCESS,
+  SET_FILTERS,
+} from './ActionTypes';
 
 export const createRepositorySuccess = (response, successMessage) => ({
   type: CREATE_REPOSITORY_SUCCESS,
@@ -15,4 +20,9 @@ export const apiError = errorMessage => ({
   payload: {
     errorMessage,
   },
+});
+
+export const setFilters = filters => ({
+  type: SET_FILTERS,
+  payload: filters,
 });

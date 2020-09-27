@@ -20,9 +20,30 @@ Button.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-const CommitList = ({commits, getCommits}) => {
+const CommitList = ({commits, getCommits, filters, removeFilter, applyFilter}) => {
   return (
     <div>
+      {filters.length > 0 && (
+        <div className="d-flex p-2 my-4">
+          {filters.map(filter => (
+            <span
+              className="badge badge-info ml-2 d-inline-flex align-items-center"
+              style={{
+                cursor: 'pointer',
+              }}
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Click to remove filter"
+              role="button"
+              onClick={() => removeFilter(filter)}
+              onKeyDown={() => removeFilter(filter)}
+              tabIndex={0}
+            >
+              {Object.values(filter)[0]}
+            </span>
+          ))}
+        </div>
+      )}
       {commits?.results.length > 0 && (
         <div>
           <div id="commit-list" className="card card-outline-secondary my-4">
@@ -36,13 +57,11 @@ const CommitList = ({commits, getCommits}) => {
                   <div className="commit-details">
                     <p>{commit.message}</p>
                     <small className="text-muted">
-                      <Button onClick={() => getCommits({params: {author: commit.author}})}>
+                      <Button onClick={() => applyFilter({author: commit.author})}>
                         {commit.author}
                       </Button>{' '}
                       authored on{' '}
-                      <Button
-                        onClick={() => getCommits({params: {repository__name: commit.repository}})}
-                      >
+                      <Button onClick={() => applyFilter({repository__name: commit.repository})}>
                         {commit.repository}
                       </Button>{' '}
                       at {commit.date}
@@ -62,7 +81,14 @@ const CommitList = ({commits, getCommits}) => {
 
 CommitList.propTypes = {
   commits: PropTypes.objectOf(PropTypes.shape()).isRequired,
+  filters: PropTypes.arrayOf(PropTypes.string),
   getCommits: PropTypes.func.isRequired,
+  applyFilter: PropTypes.func.isRequired,
+  removeFilter: PropTypes.func.isRequired,
+};
+
+CommitList.defaultProps = {
+  filters: [],
 };
 
 export default CommitList;

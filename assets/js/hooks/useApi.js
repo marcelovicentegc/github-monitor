@@ -14,7 +14,7 @@ function useApi() {
       if (params) {
         const mappedParams = Object.entries(params)
           .map(param => `&${param[0]}=${param[1]}`)
-          .join();
+          .join('');
 
         return `${GET_COMMITS_ENDPOINT}?${mappedParams.substr(1)}`;
       }
