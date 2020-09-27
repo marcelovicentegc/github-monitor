@@ -50,7 +50,7 @@ const CommitList = ({commits, getCommits, filters, removeFilter, applyFilter}) =
             <div className="card-header">Commit List</div>
             <div className="card-body">
               {commits.results.map((commit, index) => (
-                <div key={commit.sha}>
+                <div key={commit.sha} data-testid="commit">
                   <div className="avatar">
                     <img alt={commit.author} className="img-author" src={commit.avatar} />
                   </div>
