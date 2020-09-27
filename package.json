@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config webpack.config.js",
     "dev": "webpack --config webpack.config.js --watch",
     "makemigrations": "docker-compose run api python manage.py makemigrations",
     "migrate": "docker-compose run api python manage.py migrate",
