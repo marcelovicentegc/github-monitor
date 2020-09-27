@@ -3,12 +3,18 @@ from rest_framework import serializers
 from .models import Commit, Repository
 
 
-class RepositorySerializer(serializers.ModelSerializer):
+class CreateRepositorySerializer(serializers.ModelSerializer):
     repo = serializers.CharField(source='name')
 
     class Meta:
         model = Repository
         fields = ('repo',)
+
+
+class ReadRepositorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Repository
+        fields = ('name',)
 
 
 class CommitSerializer(serializers.ModelSerializer):

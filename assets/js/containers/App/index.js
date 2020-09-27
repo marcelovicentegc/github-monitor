@@ -1,27 +1,23 @@
 import React, {Suspense} from 'react';
-import {Link, BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Loading from '../../components/Loading';
+import SidebarContainer from '../Sidebar';
 
 const CommitListContainer = React.lazy(() =>
   import(/* webpackChunkName: "CommitListContainer" */ '../CommitList')
 );
-const CreateRepo = React.lazy(() => import(/* webpackChunkName: "CreateRepo" */ '../CreateRepo'));
+const CreateRepoContainer = React.lazy(() =>
+  import(/* webpackChunkName: "CreateRepo" */ '../CreateRepo')
+);
 
 export default (
   <Router>
     <div id="wrapper" className="toggled">
-      <div id="sidebar-wrapper">
-        <ul className="sidebar-nav">
-          <li className="sidebar-brand">
-            <Link to="/">Github Monitor</Link>
-          </li>
-        </ul>
-      </div>
-
+      <SidebarContainer />
       <div id="page-content-wrapper">
         <div className="container-fluid">
           <Suspense fallback={<Loading />}>
-            <CreateRepo />
+            <CreateRepoContainer />
           </Suspense>
           <Switch>
             <Route path="/" exact>

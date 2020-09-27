@@ -11,7 +11,8 @@ from rest_framework.views import APIView
 
 from .integrations import Github
 from .models import Commit, Repository
-from .serializers import CommitSerializer, RepositorySerializer
+from .serializers import (CommitSerializer, CreateRepositorySerializer,
+                          ReadRepositorySerializer)
 from .utils import Pagination
 
 
@@ -34,6 +35,12 @@ class RepositoriesEndpoint(APIView):
     permission_classes = (IsAuthenticated,)
     parser_classes = [JSONParser]
 
+    def get(self, request):
+        limit = self.request.query_params.get('limit', 10)
+        repositories = Repository.objects.order_by("-id")[:limit]
+        serializer = ReadRepositorySerializer(repositories, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request):
         """
         Checks if a repo associated with this
@@ -42,7 +49,7 @@ class RepositoriesEndpoint(APIView):
         the last 30 days.
         """
         data = request.data
-        serializer = RepositorySerializer(data=data)
+        serializer = CreateRepositorySerializer(data=data)
 
         if serializer.is_valid():
             try:

@@ -72,7 +72,9 @@ const CommitList = ({commits, getCommits, filters, removeFilter, applyFilter}) =
               ))}
             </div>
           </div>
-          {commits.total_pages > 1 && <Pagination data={commits} getData={getCommits} />}
+          {commits.total_pages > 1 && (
+            <Pagination data={commits} getData={getCommits} filters={filters} />
+          )}
         </div>
       )}
     </div>

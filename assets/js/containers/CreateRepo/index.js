@@ -41,8 +41,8 @@ CreateRepo.defaultProps = {
 };
 
 const mapStateToProps = store => ({
-  successMessage: store.commitState.successMessage,
-  errorMessage: store.commitState.errorMessage,
+  successMessage: store.messageStore.successMessage,
+  errorMessage: store.messageStore.errorMessage,
 });
 
 export default connect(mapStateToProps)(CreateRepo);
