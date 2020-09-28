@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',
     'webpack_loader',
+    'django_nose',
     'common.apps.CommonConfig',
     'repositories.apps.RepositoriesConfig',
 ]
@@ -185,3 +186,11 @@ WEBPACK_LOADER = {
         'IGNORE': ['.+\.hot-update.js', '.+\.map']  # noqa
     }
 }
+
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=common,repositories'
+]

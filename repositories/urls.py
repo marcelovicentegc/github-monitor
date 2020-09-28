@@ -6,5 +6,5 @@ app_name = 'repositories'
 
 urlpatterns = [
     re_path(r'^api/commits/$', CommitsEndpoint.as_view(), name='commits-list'),
-    re_path(r'^api/repositories/$', RepositoriesEndpoint.as_view(), name='repositories-create'),
+    re_path(r'^api/repositories/$', RepositoriesEndpoint.as_view(), name='repositories'),
 ]
