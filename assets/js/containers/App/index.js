@@ -1,13 +1,13 @@
 import React, {Suspense} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Loading from '../../components/Loading';
-import SidebarContainer from '../Sidebar';
+import SidebarContainer from '../SidebarContainer';
 
 const CommitListContainer = React.lazy(() =>
-  import(/* webpackChunkName: "CommitListContainer" */ '../CommitList')
+  import(/* webpackChunkName: "CommitListContainer" */ '../CommitListContainer')
 );
 const CreateRepoContainer = React.lazy(() =>
-  import(/* webpackChunkName: "CreateRepo" */ '../CreateRepo')
+  import(/* webpackChunkName: "CreateRepo" */ '../CreateRepoContainer')
 );
 
 export default (
