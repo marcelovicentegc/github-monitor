@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Pagination from '../Pagination';
+import {generateKey} from '../../utils/generateKey';
 
 const Button = ({children, onClick}) => (
   <button
@@ -27,6 +28,7 @@ const CommitList = ({commits, getCommits, filters, removeFilter, applyFilter}) =
         <div className="d-flex p-2 my-4">
           {filters.map(filter => (
             <span
+              key={generateKey(20)}
               className="badge badge-info ml-2 d-inline-flex align-items-center"
               style={{
                 cursor: 'pointer',
@@ -50,7 +52,7 @@ const CommitList = ({commits, getCommits, filters, removeFilter, applyFilter}) =
             <div className="card-header">Commit List</div>
             <div className="card-body">
               {commits.results.map((commit, index) => (
-                <div key={commit.sha} data-testid="commit">
+                <div key={`${commit.sha}-${commit.message.slice(0, 10)}`} data-testid="commit">
                   <div className="avatar">
                     <img alt={commit.author} className="img-author" src={commit.avatar} />
                   </div>

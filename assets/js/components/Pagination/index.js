@@ -22,7 +22,7 @@ const Pagination = ({data, getData, filters}) => {
             const isActive = data.current_page === i + 1;
 
             return (
-              <li className={`page-item ${isActive ? 'active' : ''}`} key={generateKey(20)}>
+              <li className={`page-item ${isActive ? 'active' : ''}`} key={generateKey(20 + i)}>
                 <button
                   className="page-link"
                   type="button"
