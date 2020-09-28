@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {generateKey} from '../../utils/generateKey';
+import pagination from '../../utils/pagination';
 
 const Pagination = ({data, getData, filters}) => {
   return (
@@ -18,27 +18,29 @@ const Pagination = ({data, getData, filters}) => {
               </button>
             </li>
           )}
-          {Array.from(new Array(data.total_pages)).map((_, i) => {
-            const isActive = data.current_page === i + 1;
+          {pagination(data.current_page, data.total_pages).map(page => {
+            const isActive = data.current_page === page;
 
             return (
-              <li className={`page-item ${isActive ? 'active' : ''}`} key={generateKey(20 + i)}>
+              <li className={`page-item ${isActive ? 'active' : ''}`} key={page}>
                 <button
                   className="page-link"
                   type="button"
                   onClick={() => {
                     const params = {};
 
+                    if (page === '...') return;
+
                     filters.forEach(filter => {
                       Object.assign(params, filter);
                     });
 
-                    Object.assign(params, {page: i + 1});
+                    Object.assign(params, {page});
 
                     getData({params});
                   }}
                 >
-                  {i + 1}
+                  {page}
                 </button>
                 {isActive && <span className="sr-only">(current)</span>}
               </li>
