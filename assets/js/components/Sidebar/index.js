@@ -19,6 +19,11 @@ const Sidebar = ({repositories, getCommitsByRepo}) => (
           </button>
         </li>
       ))}
+      <div className="position-relative" style={{padding: '1.25rem'}}>
+        <a href="/logout" className="btn btn-dark">
+          Logout
+        </a>
+      </div>
     </ul>
   </div>
 );
