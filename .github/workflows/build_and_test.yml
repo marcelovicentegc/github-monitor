@@ -31,6 +31,20 @@ jobs:
   build-django:
     runs-on: ubuntu-latest
     needs: build-frontend
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: db_name
+          POSTGRES_PASSWORD: db_pwd
+          POSTGRES_USER: db_user
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     strategy:
       max-parallel: 4
       matrix:
