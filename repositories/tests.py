@@ -18,6 +18,8 @@ class RepositoriesTests(APITestCase):
             is_staff=True,
             is_superuser=True)
         self.user.save()
+        self.factory = APIRequestFactory()
+        self.repo_view = RepositoriesEndpoint.as_view()
 
     def test_unauthenticated_get_commits(self):
         response = self.client.get(reverse('repositories:commits-list'))
@@ -28,9 +30,6 @@ class RepositoriesTests(APITestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_authenticated_get_repos(self):
-        factory = APIRequestFactory()
-        view = RepositoriesEndpoint.as_view()
-
         Repository.objects.bulk_create(
             [
                 Repository(name='github-monitor'),
@@ -41,8 +40,8 @@ class RepositoriesTests(APITestCase):
             ]
         )
 
-        request = factory.get(reverse('repositories:repositories'))
+        request = self.factory.get(reverse('repositories:repositories'))
         force_authenticate(request, user=self.user)
-        response = view(request)
+        response = self.repo_view(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 5)
