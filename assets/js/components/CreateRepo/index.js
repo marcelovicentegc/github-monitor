@@ -50,7 +50,7 @@ const Form = ({successMessage, handleSubmit, pristine, submitting, errorMessage}
       )}
       <form onSubmit={handleSubmit}>
         <div className="form-row">
-          <div className="col-10">
+          <div className="col-8">
             <Field
               name="name"
               placeholder="Enter the repository name, must match {user}/{repo}"
@@ -59,7 +59,7 @@ const Form = ({successMessage, handleSubmit, pristine, submitting, errorMessage}
               type="text"
             />
           </div>
-          <div className="col-2">
+          <div className="col-4">
             <button
               disabled={pristine || submitting}
               className="btn btn-block btn-primary"

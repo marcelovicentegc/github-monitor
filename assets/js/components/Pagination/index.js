@@ -14,7 +14,8 @@ const Pagination = ({data, getData, filters}) => {
                 type="button"
                 onClick={() => getData({querystring: data.previous, params: filters})}
               >
-                Previous
+                <span aria-hidden="true">&laquo;</span>
+                <span className="sr-only">Previous</span>
               </button>
             </li>
           )}
@@ -53,7 +54,8 @@ const Pagination = ({data, getData, filters}) => {
                 type="button"
                 onClick={() => getData({querystring: data.next, params: filters})}
               >
-                Next
+                <span aria-hidden="true">&raquo;</span>
+                <span className="sr-only">Next</span>
               </button>
             </li>
           )}

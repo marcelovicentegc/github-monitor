@@ -9,7 +9,7 @@ const Sidebar = ({repositories, getCommitsByRepo}) => (
         <Link to="/">Github Monitor</Link>
       </li>
       {repositories.map(repo => (
-        <li>
+        <li key={repo.name}>
           <button
             type="button"
             className="btn btn-dark"
