@@ -21,6 +21,9 @@ class RepositoriesTests(APITestCase):
         self.factory = APIRequestFactory()
         self.repo_view = RepositoriesEndpoint.as_view()
 
+    def tearDown(self):
+        Repository.objects.all().delete()
+
     def test_unauthenticated_get_commits(self):
         response = self.client.get(reverse('repositories:commits-list'))
         self.assertEqual(response.status_code, 403)
@@ -45,3 +48,16 @@ class RepositoriesTests(APITestCase):
         response = self.repo_view(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 5)
+        Repository.objects.all().delete()
+
+    def test_authenticated_post_existent_repo(self):
+        repo = Repository(name='github-monitor')
+        repo.save()
+        request = self.factory.post(
+            reverse('repositories:repositories'),
+            {'repo': 'github-monitor'},
+            format='json')
+        force_authenticate(request, user=self.user)
+        response = self.repo_view(request)
+        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+        Repository.objects.all().delete()
