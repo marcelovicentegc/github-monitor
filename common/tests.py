@@ -21,3 +21,14 @@ class Tests(TestCase):
             status_code=302,
             target_status_code=200,
             fetch_redirect_response=True)
+
+    def test_unauthenticated_logout_view(self):
+        client = Client()
+        response = client.get('/logout')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            '/login',
+            status_code=302,
+            target_status_code=200,
+            fetch_redirect_response=True)
