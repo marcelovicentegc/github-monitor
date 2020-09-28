@@ -4,10 +4,11 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
+    "cleanbuild": "docker-compose up --no-deps --build",
     "dev": "webpack --config webpack.config.js --watch",
     "makemigrations": "docker-compose run api python manage.py makemigrations",
     "migrate": "docker-compose run api python manage.py migrate",
-    "start:rebuild": "sudo rm -rf .db && docker-compose up --no-deps --build",
+    "test:django": "docker-compose run api python manage.py test",
     "start": "docker-compose up",
     "lint": "eslint assets/js/**/*",
     "fix:lint": "eslint assets/js/**/* --fix",
