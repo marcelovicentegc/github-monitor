@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import useApi from '../../hooks/useApi';
 import CreateRepoForm from '../../components/CreateRepo';
 
-const {createRepository, getCommits} = useApi();
+const {createRepository, getCommits, getRepositories} = useApi();
 
 class CreateRepo extends React.Component {
   submit = async (values, dispatch) => {
@@ -15,6 +15,7 @@ class CreateRepo extends React.Component {
 
     await createRepository(data, {'X-CSRFToken': token}, dispatch);
     await getCommits({});
+    await getRepositories({});
   };
 
   render() {
