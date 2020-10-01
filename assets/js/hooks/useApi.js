@@ -1,10 +1,21 @@
 import axios from 'axios';
 import {reset} from 'redux-form';
 import store from '../store';
-import {getCommitsAction} from '../store/actions/CommitActions';
+import {
+  getCommitsAction,
+  getCommitsByAuthorAction,
+  getCommitsByRepoAction,
+} from '../store/actions/CommitActions';
 import {setSuccessMessageAction, setErrorMessageAction} from '../store/actions/MessageActions';
 import {getRepositoriesAction} from '../store/actions/RepoActions';
-import {REPOSITORIES_ENDPOINT, GET_COMMITS_ENDPOINT, API_MESSAGES, mapParams} from '../utils/api';
+import {
+  REPOSITORIES_ENDPOINT,
+  GET_COMMITS_ENDPOINT,
+  API_MESSAGES,
+  mapParams,
+  GET_COMMITS_BY_REPO_ENDPOINT,
+  GET_COMMITS_BY_AUTHOR_ENDPOINT,
+} from '../utils/api';
 
 function useApi() {
   async function getCommits({querystring, params}) {
@@ -63,7 +74,29 @@ function useApi() {
       });
   }
 
-  return {getCommits, createRepository, getRepositories};
+  async function getCommitsByRepo() {
+    await axios
+      .get(GET_COMMITS_BY_REPO_ENDPOINT)
+      .then(response => {
+        store.dispatch(getCommitsByRepoAction(response.data));
+      })
+      .catch(error => {
+        store.dispatch(setErrorMessageAction(error.message));
+      });
+  }
+
+  async function getCommitsByAuthor() {
+    await axios
+      .get(GET_COMMITS_BY_AUTHOR_ENDPOINT)
+      .then(response => {
+        store.dispatch(getCommitsByAuthorAction(response.data));
+      })
+      .catch(error => {
+        store.dispatch(setErrorMessageAction(error.message));
+      });
+  }
+
+  return {getCommits, createRepository, getRepositories, getCommitsByRepo, getCommitsByAuthor};
 }
 
 export default useApi;

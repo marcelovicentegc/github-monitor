@@ -1,4 +1,9 @@
-import {GET_COMMITS, SET_FILTERS} from '../../utils/store';
+import {
+  GET_COMMITS,
+  GET_COMMITS_BY_AUTHOR,
+  GET_COMMITS_BY_REPO,
+  SET_FILTERS,
+} from '../../utils/store';
 
 export const getCommitsAction = commits => ({
   type: GET_COMMITS,
@@ -11,3 +16,13 @@ export const setFiltersAction = filters => {
     payload: filters,
   };
 };
+
+export const getCommitsByRepoAction = commits => ({
+  type: GET_COMMITS_BY_REPO,
+  payload: commits,
+});
+
+export const getCommitsByAuthorAction = commits => ({
+  type: GET_COMMITS_BY_AUTHOR,
+  payload: commits,
+});

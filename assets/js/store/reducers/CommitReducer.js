@@ -1,4 +1,9 @@
-import {GET_COMMITS, SET_FILTERS} from '../../utils/store';
+import {
+  GET_COMMITS,
+  GET_COMMITS_BY_AUTHOR,
+  GET_COMMITS_BY_REPO,
+  SET_FILTERS,
+} from '../../utils/store';
 
 const initialState = {
   commits: {
@@ -17,6 +22,16 @@ const commitReducer = (state = initialState, action) => {
       return {
         ...state,
         commits: action.payload,
+      };
+    case GET_COMMITS_BY_REPO:
+      return {
+        ...state,
+        commitsByRepo: action.payload,
+      };
+    case GET_COMMITS_BY_AUTHOR:
+      return {
+        ...state,
+        commitsByAuthor: action.payload,
       };
     case SET_FILTERS: {
       return {...state, filters: action.payload};

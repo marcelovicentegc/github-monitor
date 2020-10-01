@@ -77,3 +77,33 @@ class RepositoriesEndpoint(APIView):
 
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CommitsByRepoEndpoint(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        repositories = Repository.objects.all()
+        data = []
+
+        with transaction.atomic():
+            for repository in repositories:
+                commit_count = Commit.objects.filter(repository=repository).count()
+                data.append({"repository": repository.name, "commits": commit_count})
+
+        return Response(data, status=status.HTTP_200_OK)
+
+
+class CommitsByAuthorEndpoint(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        a = Commit.objects.values_list('author', flat=True).order_by('author').distinct('author')
+        data = []
+
+        with transaction.atomic():
+            for author in a:
+                commit_count = Commit.objects.filter(author=author).count()
+                data.append({"author": author, "commits": commit_count})
+
+        return Response(data, status=status.HTTP_200_OK)

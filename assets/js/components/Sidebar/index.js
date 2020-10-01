@@ -7,6 +7,8 @@ const Sidebar = ({repositories, getCommitsByRepo}) => (
     <ul className="sidebar-nav">
       <li className="sidebar-brand">
         <Link to="/">Github Monitor</Link>
+        <Link to="/commits-by-repo">Commits by repo</Link>
+        <Link to="/commits-by-author">Commits by author</Link>
       </li>
       {repositories.map(repo => (
         <li key={repo.name} data-testid="repo">
